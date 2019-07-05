@@ -1,0 +1,87 @@
+<html>
+<head>
+  <title>TaskManager</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<div class="form_div">
+    <form class="form-horizontal" [formGroup]="searchTaskForm">
+      <!--Task field-->
+         <div class="form-group">
+        <label class="control-label col-sm-1 font-style" for="Task">Task:</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" formControlName="task" id="task" placeholder="Enter Task" name="Task">
+        </div>
+        <label class="control-label col-sm-1"></label>
+           <label class="control-label col-sm-2 font-style" for="Task">Parent Task:</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" formControlName="parentTask" id="parent_task" placeholder="Enter Parent Task" name="parentTask">
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-1 font-style" for="priorityFrom">Priority From:</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" formControlName="priorityFrom" id="priority_from" placeholder="Enter Priority From" name="priorityFrom">
+            </div>
+               <label class="control-label col-sm-1 font-style" for="priorityTo">Priority To:</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" formControlName="priorityTo" id="priority_to" placeholder="Enter Priority To" name="priorityTo">
+              </div>
+              <label class="control-label col-sm-1 font-style" for="startDate">Start Date:</label>
+            <div class="col-sm-2">
+              <input type="date" class="form-control" formControlName="startDate" id="start_date"  name="startDate">
+            </div>
+               <label class="control-label col-sm-1 font-style" for="endDate">End Date:</label>
+              <div class="col-sm-2">
+                <input type="date" class="form-control" formControlName="endDate" id="end_date" name="endDate">
+              </div>
+            
+            </div>
+            <div class="form-group"> 
+                <div class="col-sm-offset-2 col-sm-4">
+                  <button (click)="searchTask()" class="btn btn-Basic">Search Task</button>
+                   
+                  <button type="reset" class="btn btn-Basic reset-btn">Reset</button>
+                </div>
+                </div>
+
+      </form>
+      </div>
+      <hr>
+      <div>
+        <table class="table">
+        
+            
+            <tr *ngFor="let task of tasksModel">
+              <div>
+                <div class="col-sm-12 font-style">
+                    <th><label class="control-label col-sm-2" for="priorityTo">Task</label></th>
+                    <th><label class="control-label col-sm-2 align-label" for="priorityTo">Parent</label></th>
+                    <th><label class="control-label col-sm-2 align-label-p" for="priorityTo">Priority</label></th>
+                    <th><label class="control-label col-sm-2 align-label" for="priorityTo">Start</label></th>
+                    <th><label class="control-label col-sm-2 align-label" for="priorityTo">End</label></th>
+                    <th><label class="control-label col-sm-1" for="priorityTo"></label></th>
+                    <th><label class="control-label col-sm-1" for="priorityTo"></label></th>
+                  </div>
+            <div class="col-sm-12 font-style">
+            <td class="col-sm-2"><input type="text" class="form-control" id="priority_to"  value={{task.taskID}} name="task"></td>
+            <td class="col-sm-2"><input type="text" class="form-control" id="priority_to"  value={{task.parentID}} name="task"></td>
+            <td class="col-sm-2">{{task.priority}}</td>
+            <td class="col-sm-2">{{task.startDate}}</td>
+            <td class="col-sm-2">{{task.endDate}}</td>
+            <td class="col-sm-1"><button (click)="updateTask(task)" class="btn btn-Basic">Edit</button></td>
+            <td class="col-sm-1"><button class="btn btn-Basic">End Task</button></td>
+          </div>
+        </div>
+        <hr>
+          </tr>
+          <hr>
+        </table>
+      </div>
+        
+</html>
+

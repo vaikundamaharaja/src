@@ -1,0 +1,71 @@
+<html>
+
+
+
+<head>
+  <title>TaskManager</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<!-- Add task form-->
+<div>
+  <form class="form-horizontal" [formGroup]="addTaskForm">
+    <!--Task field-->
+       <div class="form-group">
+      <label class="control-label col-sm-2 font-style" for="Task">Task ID:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" formControlName="task" id="task" placeholder="Enter Task ID" name="Task">
+      </div>
+    </div>
+     <!--Priority-->
+    <div class="form-group">
+      <label class="control-label col-sm-2 font-style" for="Priority">Priority:</label>
+      <div class="col-sm-2 slidecontainer">
+          0  <span>30</span>
+            <input type="range" min="1" max="30" value="1" formControlName="priority"  class="slider" id="myRange" name="myRange" oninput="amount.value=myRange.value">
+            <output id="amount" name="amount" for="rangeInput">0</output> 
+       <!--  <input type="text" class="form-control" id="Priority" placeholder="Enter Priority" name="Priority"> -->
+      </div>
+    </div>
+     <!-- Parent Task field-->
+     <div class="form-group"> 
+        <label class="control-label col-sm-2 font-style" for="TaskName">Task Name:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="TaskName" formControlName="taskName" placeholder="Enter TaskName Task" name="TaskName">
+        </div>
+      </div>
+ <!-- Parent Task field-->
+    <div class="form-group">
+      <label class="control-label col-sm-2 font-style" for="ParentTask">Parent Task ID:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="ParentTask" formControlName="parentTaskID" placeholder="Enter Parent Task ID" name="ParentTask">
+      </div>
+    </div>
+     <!--Task Start date field-->
+    <div class="form-group">
+      <label class="control-label col-sm-2 font-style" for="StartDate">Start Date:</label>
+      <div class="col-sm-4">
+        <input type="date" class="form-control" id="StartDate" formControlName="startDate" placeholder="Enter Start Date" name="StartDate">
+      </div>
+    </div>
+     <!--Task End date field-->
+    <div class="form-group">
+      <label class="control-label col-sm-2 font-style" for="Task">EndDate:</label>
+      <div class="col-sm-4">
+        <input type="date" class="form-control" id="EndDate" formControlName="endDate" placeholder="Enter EndDate" name="EndDate">
+      </div>
+    </div>
+    <div class="form-group"> 
+        <div class="col-sm-offset-2 col-sm-4">
+          <button (click)="addTask()" class="btn btn-Basic">Add Task</button>
+           
+          <button type="reset" class="btn btn-Basic reset-btn">Reset</button>
+        </div>
+        </div>
+     </form>
+</div>
+
+</html>
