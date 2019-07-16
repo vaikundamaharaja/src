@@ -12,7 +12,7 @@ export class TaskServices{
         'Content-Type':  'application/json',
         'Access-Control-Allow-Origin' : 'http://localhost:9090',
         'Access-Control-Allow-Credentials' :'true',
-        'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS,PUT,DELETE,UPDATE',
         'Access-Control-Allow-Headers' : 'Origin, Content-Type, Accept',
       })
       
@@ -37,7 +37,23 @@ export class TaskServices{
           catchError(this.handleError<any>('addProduct'))
         );
       }
-    
+      findTasksByDate(startDate: string, endDate: string):Observable<any> {
+        return this.http.get(this.endpoint + 'findTasksByDate/'+`${startDate}`+'/'+`${endDate}`).pipe(
+          map(this.extractData));
+      }
+      findByTaskID(taskID: string): Observable<any> {
+        return this.http.get(this.endpoint + 'findByTaskID/'+`${taskID}`).pipe(
+          map(this.extractData));
+      }
+      findTasksByPriority(startPriority: string, endPriority: string): Observable<any> {
+        return this.http.get(this.endpoint + 'findTasksByPriority/'+`${startPriority}`+'/'+`${endPriority}`).pipe(
+          map(this.extractData));
+      }
+      findTasksByParentID(parentID: string): Observable<any> {
+        return this.http.get(this.endpoint + 'findTasksByParentID/'+`${parentID}`).pipe(
+          map(this.extractData));
+      }    
+      
       getAllTasks(): Observable<any> {
         return this.http.get(this.endpoint + 'getAllTasks').pipe(
           map(this.extractData));
