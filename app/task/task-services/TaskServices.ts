@@ -33,8 +33,21 @@ export class TaskServices{
       addTask (taskModel: TaskModel): Observable<any> {
         console.log(taskModel);
         return this.http.post<any>(this.endpoint + 'addTask', JSON.stringify(taskModel), this.httpOptions).pipe(
-          tap((taskModel) => console.log(`added product w/ id=${taskModel.parentID}  ${taskModel.task}`)),
-          catchError(this.handleError<any>('addProduct'))
+          tap((taskModel) => console.log(`added Task w/ id=${taskModel.parentID}  ${taskModel.task}`)),
+          catchError(this.handleError<any>('Add task'))
+        );
+      }
+      updateTask (taskModel: TaskModel, taskID: string): Observable<any> {
+        console.log(taskModel);
+        return this.http.put<any>(this.endpoint + 'updateTask/'+`${taskID}`, JSON.stringify(taskModel), this.httpOptions).pipe(
+          tap((taskModel) => console.log(`updated task w/ id=${taskModel.parentID}  ${taskModel.task}`)),
+          catchError(this.handleError<any>('Update task'))
+        );
+      }
+      deleteTask (taskID: string): Observable<any> {
+        return this.http.delete<any>(this.endpoint + 'deleteTask/' + taskID, this.httpOptions).pipe(
+          tap(_ => console.log(`deleted task id=${taskID}`)),
+          catchError(this.handleError<any>('delete task'))
         );
       }
       findTasksByDate(startDate: string, endDate: string):Observable<any> {

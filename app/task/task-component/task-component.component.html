@@ -22,9 +22,8 @@
       <label class="control-label col-sm-2 font-style" for="Priority">Priority:</label>
       <div class="col-sm-2 slidecontainer">
           0  <span>30</span>
-            <input type="range" min="1" max="30" value="1" formControlName="priority"  class="slider" id="myRange" name="myRange" oninput="amount.value=myRange.value">
+            <input type="range" min="0" max="30" value="0" formControlName="priority"  class="slider" id="myRange" name="myRange" oninput="amount.value=myRange.value">
             <output id="amount" name="amount" for="rangeInput">0</output> 
-       <!--  <input type="text" class="form-control" id="Priority" placeholder="Enter Priority" name="Priority"> -->
       </div>
     </div>
      <!-- Parent Task field-->
@@ -64,5 +63,19 @@
         </div>
      </form>
 </div>
-
+<!--Added successfully popup-->
+<div class="w3-container font-style">
+  <div id="addTaskSuccess" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('addTaskSuccess').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+     <h3>Task ID {{taskID}} Added Successfully</h3>
+     <hr>
+     <div class="btn-div">
+     <button (click)="onAddSuccessClose()" class="btn btn-Basic btn-margin">Close</button>
+   </div>
+      </div>
+    </div>
+  </div>
+</div>
 </html>

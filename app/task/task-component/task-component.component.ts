@@ -12,13 +12,14 @@ export class TaskComponentComponent implements OnInit {
 
   addTaskForm = this.fb.group ({
     task:[''],
-    priority: [''],
+    priority: ['0'],
     taskName: [''],
     parentTaskID:[''],
     startDate:[''],
     endDate:['']
 
   });
+  taskID: string ="";
   taskModel: TaskModel = new TaskModel();
   taskModels: any =[];
   constructor( private fb: FormBuilder, private taskServices: TaskServices) { }
@@ -26,6 +27,7 @@ export class TaskComponentComponent implements OnInit {
   ngOnInit() {
   }
   addTask(){
+    this.taskID = this.addTaskForm.controls.task.value;
     this.taskModel.taskID = this.addTaskForm.controls.task.value;
     this.taskModel.priority = this.addTaskForm.controls.priority.value;
     this.taskModel.task = this.addTaskForm.controls.taskName.value;
@@ -35,14 +37,12 @@ export class TaskComponentComponent implements OnInit {
     this.taskServices.addTask(this.taskModel).subscribe((res)=>{
       console.log("Created a customer");
 });;
+document.getElementById('addTaskSuccess').style.display='block';
+}
 
-  }
-  getAllTasks() {
-    this.taskModels = [];
-    this.taskServices.getAllTasks().subscribe((data:  {}) => {
-      console.log(data);
-      this.taskModels = data;
-    });
-  }
+onAddSuccessClose(){
+  document.getElementById('addTaskSuccess').style.display='none';
+}
+  
 
 }

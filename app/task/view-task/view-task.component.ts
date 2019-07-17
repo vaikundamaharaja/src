@@ -22,8 +22,18 @@ export class ViewTaskComponent implements OnInit {
     endDate:['']
 
   });
-
+  updateTaskForm = this.fb.group ({
+    task:[''],
+    priority:[''],
+    taskName: [''],
+    parentTaskID:[''],
+    startDate:[''],
+    endDate:['']
+  });
+  taskModel: TaskModel = new TaskModel();
   tasksModel: any=[];
+  taskID: string="";
+  priority: number =0;
   constructor(private fb: FormBuilder, private taskServices: TaskServices , private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -68,17 +78,57 @@ if(startDate!='' && endDate != ''){
 return;
 }
   }
-  updateTask(task:TaskModel){
+
+  showUpdateTask(task: TaskModel){
    // console.log(task);
+   document.getElementById('updateTask').style.display='block';
+   this.updateTaskForm.controls['task'].setValue(task.taskID);
+   this.priority=task.priority;
+   this.updateTaskForm.controls['priority'].setValue(task.priority);
+   this.updateTaskForm.controls['taskName'].setValue(task.task)
+   this.updateTaskForm.controls['parentTaskID'].setValue(task.parentID);
+   this.updateTaskForm.controls['startDate'].setValue(task.startDate);
+   this.updateTaskForm.controls['endDate'].setValue(task.endDate);
   }
-
-  onOpenPopup(event){
-    this.showPopup =true;
-   /* this.router.navigate(['/','updateTasks']).then(nav => {
-      console.log(nav); // true if navigation is successful
-    }, err => {
-      console.log(err) // when there's an error
-    });*/
+  cancel(){
+    document.getElementById('updateTask').style.display='none';
   }
+  updateTask(){
+    document.getElementById('updateTask').style.display='none';
+    this.taskID= this.updateTaskForm.controls.task.value;
+    this.taskModel.taskID = this.updateTaskForm.controls.task.value;
+    this.taskModel.task = this.updateTaskForm.controls.taskName.value;
+    this.taskModel.priority = this.updateTaskForm.controls.priority.value;
+    this.taskModel.parentID = this.updateTaskForm.controls.parentTaskID.value;
+    this.taskModel.startDate = this.updateTaskForm.controls.startDate.value;
+    this.taskModel.endDate = this.updateTaskForm.controls.endDate.value;
+    this.taskServices.updateTask(this.taskModel, this.taskID).subscribe((res)=>{
+      console.log("Update the Task");
+});;
+document.getElementById('updateSuccess').style.display='block';
+  }
+onSuccessUpdateClose(){
+  document.getElementById('updateSuccess').style.display='none';
+  this.searchTask();
+}
 
+showDeleteTask(task: TaskModel){
+    this.taskID = task.taskID;
+    document.getElementById('deleteTask').style.display='block';
+}
+deleteTask(){
+  document.getElementById('deleteTask').style.display='none';
+  this.taskServices.deleteTask(this.taskID).subscribe((res)=>{
+    console.log("Delete the dask");
+});;
+document.getElementById('deleteSuccess').style.display='block';
+}
+onSuccessDeleteClose(){
+  document.getElementById('deleteSuccess').style.display='none';
+  this.searchTask();
+}
+
+closeDeletePopup(){
+  document.getElementById('deleteTask').style.display='none';
+}
 }
